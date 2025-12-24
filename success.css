@@ -1,0 +1,36 @@
+body{
+    background-image: url('רקע/Lottie Confettie.gif')}
+.animated-heading {
+    font-size: 6rem;
+    text-transform: uppercase;
+    animation: animate-heading 3s infinite;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    text-align: center;
+    margin-top: 12%;
+    color: red;
+}
+button, a {
+    font-size: 150%;
+    background-color: white;
+    color: rgb(0, 93, 0);
+    width: 10%;
+    text-align: center; 
+     font-family: Arial, sans-serif; 
+     margin-left:45%; 
+     margin-top: 10%;
+     border: 1px solid rgb(0, 93, 0); 
+     padding: 10px;
+    }
+
+@keyframes animate-heading {
+0% {
+letter-spacing: 0.2em;
+}
+50% {
+letter-spacing: 1em;
+}
+100% {
+letter-spacing: 0.2em;
+}
+}

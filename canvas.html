@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Snake with Tunnels</title>
+  <style>
+    canvas {
+      border: 2px solid black;
+      background: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="game" width="300" height="300"></canvas>
+
+  <script>
+    const canvas = document.getElementById("game");
+    const ctx = canvas.getContext("2d");
+
+    const tileSize = 30;
+    const rows = 10;
+    const cols = 10;
+
+    // בונים לוח פשוט
+    const board = Array.from({ length: rows }, () =>
+      Array.from({ length: cols }, () => ({ type: "empty" }))
+    );
+
+    // מנהרה עם אותו id
+    board[2][2] = { type: "tunnel", id: 1 };
+    board[7][7] = { type: "tunnel", id: 1 };
+
+    let snake = [{ x: 0, y: 0 }];
+    let direction = "right";
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowUp") direction = "up";
+      if (e.key === "ArrowDown") direction = "down";
+      if (e.key === "ArrowLeft") direction = "left";
+      if (e.key === "ArrowRight") direction = "right";
+    });
+
+    function findTunnelExit(id, current) {
+      for (let y = 0; y < rows; y++) {
+        for (let x = 0; x < cols; x++) {
+          const cell = board[y][x];
+          if (cell.type === "tunnel" && cell.id === id) {
+            if (!(x === current.x && y === current.y)) {
+              return { x, y };
+            }
+          }
+        }
+      }
+      return null;
+    }
+
+    function moveSnake() {
+      let head = { ...snake[0] };
+
+      if (direction === "up") head.y -= 1;
+      if (direction === "down") head.y += 1;
+      if (direction === "left") head.x -= 1;
+      if (direction === "right") head.x += 1;
+
+      // אם יצא מהלוח – סיום
+      if (head.x < 0 || head.y < 0 || head.x >= cols || head.y >= rows) {
+        alert("Game Over!");
+        return;
+      }
+
+      const cell = board[head.y][head.x];
+
+      if (cell.type === "tunnel") {
+        const exit = findTunnelExit(cell.id, head);
+        if (exit) {
+          head = exit;
+        }
+      }
+
+      snake.unshift(head);
+      snake.pop();
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // צייר לוח
+      for (let y = 0; y < rows; y++) {
+        for (let x = 0; x < cols; x++) {
+          const cell = board[y][x];
+          if (cell.type === "tunnel") {
+            ctx.fillStyle = "yellowgreen";
+            ctx.beginPath();
+            ctx.arc(
+              x * tileSize + tileSize / 2,
+              y * tileSize + tileSize / 2,
+              tileSize / 2 - 2,
+              0,
+              Math.PI * 2
+            );
+            ctx.fill();
+          }
+        }
+      }
+
+      // צייר נחש
+      ctx.fillStyle = "green";
+      snake.forEach((part) => {
+        ctx.fillRect(
+          part.x * tileSize,
+          part.y * tileSize,
+          tileSize,
+          tileSize
+        );
+      });
+    }
+
+    function gameLoop() {
+      moveSnake();
+      draw();
+    }
+
+    setInterval(gameLoop, 300);
+  </script>
+</body>
+</html>

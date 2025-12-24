@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>snack game</title>
+    <link rel="stylesheet" href="success.css">
+</head>
+<body>
+    <h1 class="animated-heading">!!!עלית שלב</h1>
+    <button>להמשיך לשחק</button>
+    <script>
+        const heading = document.querySelector('.animated-heading');
+
+setTimeout(() => {
+    heading.style.opacity = 1;
+}, 500);
+        document.querySelector('button').addEventListener('click', ()=>{
+            window.open("game.html", "_self")
+        })
+    </script>
+</body>
+</html>

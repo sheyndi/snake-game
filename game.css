@@ -1,0 +1,214 @@
+body {
+  background-color: aqua;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.snake-body {
+  background-image: url(תמונות/נחש/body.png);
+  background-size: 95%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.snake-head-left {
+  background-image: url(תמונות/נחש/snake-head-left.png);
+  background-size: 95%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.snake-head-right {
+  background-image: url(תמונות/נחש/snake-head-right.png);
+  background-size: 95%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.snake-head-up {
+  background-image: url(תמונות/נחש/snake-head-up.png);
+  background-size: 95%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.snake-head-down {
+  background-image: url(תמונות/נחש/snake-head-down.png);
+  background-size: 95%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.cell {
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  font-size: 100%;
+  font-weight: bold;
+  padding: 0%;
+  position: relative; /* שינוי חשוב */
+  z-index: 2;
+}
+
+img {
+  width: 100%;
+  z-index: 1;
+}
+
+.stone {
+  background-color: brown;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* מידע על המשחק (טיימר + חיים) */
+#game-info {
+  display: flex;
+  justify-content: space-around;
+  width: 50%;
+  margin-bottom: 20px;
+}
+
+.food-img {
+  z-index: 1;
+}
+
+#timer,
+#lives {
+  background: white;
+  border: 2px solid #00bcd4;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  min-width: 120px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* הלוח עצמו */
+#container {
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+  width: 185vmin;
+  height: 85vmin;
+  border: 4px solid #333;
+  border-radius: 10px;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+  background-size: cover;
+  background-position: center;
+}
+
+/* Pipe עם שכבת חלון מעל העציץ */
+.pipe-horizontal::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url(תמונות/צינורות/pipe-horizontal.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 2; /* מעל העציץ */
+}
+
+.pipe-down-left::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url(תמונות/צינורות/pipe-down-left.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 2; /* מעל העציץ */
+}
+
+.pipe-down-right::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url(תמונות/צינורות/pipe-down-right.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 2;
+}
+
+.pipe-up-right::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url(תמונות/צינורות/pipe-up-right.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 2;
+}
+
+.pipe-up-left::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url(תמונות/צינורות/pipe-up-left.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 2;
+}
+
+.pipe-vertical::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url(תמונות/צינורות/pipe-vertical.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 2;
+}
+
+.pipe-cross::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url(תמונות/צינורות/pipe-cross.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 2;
+}
+
+.collision-particle {
+  position: absolute;
+  width: 12%;
+  height: 12%;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffff66 0%, #ff9933 50%, #ff3300 100%);
+  pointer-events: none;
+  animation: particle-explode 0.7s ease-out forwards;
+  z-index: 5;
+}
+
+@keyframes particle-explode {
+  0% {
+    transform: translate(0, 0) scale(0.5) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(var(--x), var(--y)) scale(1) rotate(var(--rotate));
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(calc(var(--x) * 1.3), calc(var(--y) * 1.3)) scale(1.5) rotate(calc(var(--rotate) * 2));
+    opacity: 0;
+  }
+}
+
+
+

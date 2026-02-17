@@ -43,10 +43,10 @@ function lost_download() {
         livesLeft--;
         document.getElementById("lives").textContent = `❤️ Lives: ${livesLeft}`;
         localStorage.setItem('livesLeft', livesLeft);
-        window.location.reload();
+        location.replace(location.href)
     }
     else if (livesLeft <= 0) {
-        window.open("game_over.html", "_self");
+        location.replace("game_over.html");
         return;
     }
 }

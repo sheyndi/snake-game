@@ -28,7 +28,7 @@ export const stages = [
         minFoodToPass: 12,
         pipePositions: [
             { position: 21, type: 'pipe-horizontal' },
-            { position: 22, type: 'pipe-horizontal' },
+            { position: 22, type: 'pipe-cross' },
             { position: 23, type: 'pipe-horizontal' },
             { position: 24, type: 'pipe-down-left' },
             { position: 40, type: 'pipe-vertical' },
@@ -98,7 +98,6 @@ export const stages = [
         time: 150,
         foodImg: "תמונות/food/הורדה (7).gif",
         backgroundImage: `url("תמונות/רקעים/הורדה (1).gif")`,
-        stonePositions: [100, 101],
         minFoodToPass: 18,
         pipePositions: [
             { position: 12, type: 'pipe-horizontal' },
